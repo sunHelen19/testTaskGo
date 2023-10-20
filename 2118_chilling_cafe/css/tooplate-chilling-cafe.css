@@ -148,6 +148,84 @@ figcaption span {
 border-radius: 50%;
 }
 
+/* Стили слайдера*/
+.slider {
+  overflow: hidden;
+
+}
+
+
+.navigation {
+  position: relative;
+ bottom: 30px;
+left: 87%;
+ transform: translateX(-50%);
+  display: flex;
+  }
+
+.bar{
+  height: 8px;
+  width: 30px;
+  margin: 6px;
+  cursor: pointer;
+  background-color: #ddd;
+  opacity: 0.5;
+  border-radius: 10px;
+  transition: all .4s ease;
+}
+
+.bar:hover{
+  opacity:1;
+  transform: scale(1,1);
+ }
+
+
+
+input[name="r"]{
+position: relative;
+visibility: hidden;
+}
+
+.slides{
+  width: 300%;
+  height: 100%;
+  padding-top: 10px;
+  
+  display: flex;
+}
+
+.slide{
+
+ width: 32%;
+  transition: all .6s ease;
+}
+
+.slide figcaption{
+  position: relative;
+  left: -13%;
+}
+
+
+
+.slide img {
+ position: relative;
+ left: 35px;
+}
+
+#r1:checked ~ .s1{
+margin-left: 0;
+}
+
+#r2:checked ~ .s1{
+  margin-left: -33%;
+  }
+
+
+#r3:checked ~ .s1{
+  margin-left: -66%;
+  }
+
+/*Конец стилей слайдера*/
 
 hr {
   width: 60%;
