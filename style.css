@@ -1,7 +1,11 @@
 table {
   border-collapse: collapse;
 }
-
-tbody tr:nth-child(-n + 5) {
+/*  // Смена фона на синий для первых 5 валют  через CSS*/
+/*tbody tr:nth-child(-n + 5) {
   background-color: blue;
+}*/
+
+td {
+  padding: 10px;
 }
