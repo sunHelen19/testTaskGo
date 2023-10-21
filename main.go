@@ -34,20 +34,27 @@ func main() {
 		fmt.Print("Введите номер варианта ответа:")
 		var response int
 		fmt.Scan(&response)
+		data, err := getData(url)
+		if err != nil {
+			fmt.Println(err)
+		}
 		if response == 1 {
-			data, err := getData(url)
-			if err != nil {
-				fmt.Println(err)
-			}
+
 			for _, currency := range data {
-				fmt.Println(currency.Name, "-", currency.CurrentPrice)
+				PrintData(currency)
 
 			}
 		} else if response == 2 {
-			fmt.Println("Введите название валюты:")
-			var currency string
-			fmt.Scan(&currency)
-			fmt.Printf("Ищу курс %v\n", currency)
+			fmt.Print("Введите название валюты:")
+			var respCur string
+			fmt.Scan(&respCur)
+
+			for _, currency := range data {
+				if currency.Name == respCur {
+					PrintData(currency)
+				}
+			}
+
 		}
 		fmt.Println()
 	}
@@ -81,4 +88,8 @@ func getData(path string) ([]Data, error) {
 	}
 
 	return dataStore, nil
+}
+
+func PrintData(currency Data) {
+	fmt.Println(currency.Name, "-", currency.CurrentPrice)
 }
