@@ -3,10 +3,10 @@ let url='https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=ma
 
 
 function fetchTableData(url) {
-  fetch(url) // здесь нужно указать путь к файлу с данными
+  fetch(url) 
     .then(response => response.json())
     .then(data => {
-      const table = document.getElementById('table');
+      const table = document.getElementById('data');
  
       data.forEach(item => {
         const row = table.insertRow();
