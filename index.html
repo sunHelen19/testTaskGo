@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="style.css" rel="stylesheet" />
     <title>Задание 1</title>
   </head>
   <body>
@@ -16,12 +17,18 @@ https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_
 
 А для валюты, где "symbol" = "usdt" делаем фон зеленого цвета (css background).
 -->
-    <table border="1">
-      <tr>
-        <th>id</th>
-        <th>symbol</th>
-        <th>name</th>
-      </tr>
+    <table id="table" border="1">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>symbol</th>
+          <th>name</th>
+        </tr>
+      </thead>
+
+      <tbody id="data"></tbody>
     </table>
+
+    <script src="script.js"></script>
   </body>
 </html>
