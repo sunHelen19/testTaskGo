@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 /*
@@ -27,35 +28,53 @@ type Data struct {
 var url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1"
 
 func main() {
+	timeDownload := time.Now().Add(-10 * time.Minute)
+	var dataStore []Data
 
 	for {
 		fmt.Println("Какие курсы криптовалют Вы хотите получить?:")
 		fmt.Println("1. Все курсы криптовалют")
-		fmt.Println("2. Выбрать криптовалюту:")
+		fmt.Println("2. Выбрать криптовалюту")
 		fmt.Print("Введите номер варианта ответа:")
 		var response int
 		fmt.Scan(&response)
-		data, err := getData(url)
-		if err != nil {
-			fmt.Println(err)
+
+		currentTime := time.Now()
+
+		nextTimeDownload := timeDownload.Add(10 * time.Minute)
+
+		if currentTime.After(nextTimeDownload) {
+
+			data, err := getData(url)
+			dataStore = data
+			timeDownload = time.Now()
+			if err != nil {
+				fmt.Println(err)
+			}
+		} else {
+			timeRange := time.Until(nextTimeDownload)
+			dur := timeRange.Round(time.Minute).Minutes()
+			//dur := timeRange.Minutes()
+			fmt.Printf("\nСледующая загрузка курсов не ранее чем через %v минут!\n\n", dur)
 		}
+
 		if response == 1 {
 
-			for _, currency := range data {
+			for _, currency := range dataStore {
 				printData(currency)
 
 			}
 		} else if response == 2 {
 		ForLabel:
 			for {
-				fmt.Print("Введите название валюты:")
+				fmt.Print("Введите название криптовалюты:")
 				var respCur string
 				fmt.Scan(&respCur)
 
 				respCur = prepareStr(respCur)
 
 				var isCurrency = false
-				for _, currency := range data {
+				for _, currency := range dataStore {
 					cripto := prepareStr(currency.Name)
 					if cripto == respCur {
 						printData(currency)
@@ -92,14 +111,10 @@ func getData(path string) ([]Data, error) {
 		}
 
 		if errJson := json.Unmarshal(body, &dataStore); errJson != nil {
-			fmt.Println("урс")
 			return nil, errJson
 		}
 
-	} else {
-		fmt.Println("превышено количество запросов")
 	}
-
 	return dataStore, nil
 }
 func printData(currency Data) {
