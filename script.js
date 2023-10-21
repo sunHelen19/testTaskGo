@@ -16,7 +16,7 @@ function fetchTableData(url) {
 
         // Смена фона на синий для первых 5 валют
         if (rowNumber < 6) {
-          row.style.backgroundColor = "blue";
+          changeBackgroundColorCell("blue", row);
           rowNumber += 1;
         }
 
