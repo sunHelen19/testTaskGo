@@ -7,3 +7,5 @@ https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_
 Добавить возможность получать курс для определенной криптовалюты.
 
 Курсы обновляем не чаще чем раз в 10 минут.
+
+Для запуска программы необходимо в консоли ввести: go run main.go
