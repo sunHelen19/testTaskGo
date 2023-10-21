@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 )
 
 /*
@@ -41,17 +42,29 @@ func main() {
 		if response == 1 {
 
 			for _, currency := range data {
-				PrintData(currency)
+				printData(currency)
 
 			}
 		} else if response == 2 {
-			fmt.Print("Введите название валюты:")
-			var respCur string
-			fmt.Scan(&respCur)
+		ForLabel:
+			for {
+				fmt.Print("Введите название валюты:")
+				var respCur string
+				fmt.Scan(&respCur)
 
-			for _, currency := range data {
-				if currency.Name == respCur {
-					PrintData(currency)
+				respCur = prepareStr(respCur)
+
+				var isCurrency = false
+				for _, currency := range data {
+					cripto := prepareStr(currency.Name)
+					if cripto == respCur {
+						printData(currency)
+						isCurrency = true
+						break ForLabel
+					}
+				}
+				if isCurrency == false {
+					fmt.Println("Некорректный ввод криптовалюты. Попробуйте еще раз!")
 				}
 			}
 
@@ -89,7 +102,12 @@ func getData(path string) ([]Data, error) {
 
 	return dataStore, nil
 }
-
-func PrintData(currency Data) {
+func printData(currency Data) {
 	fmt.Println(currency.Name, "-", currency.CurrentPrice)
+}
+
+func prepareStr(str string) string {
+	str = strings.Trim(str, " ")
+	str = strings.ToLower(str)
+	return str
 }
