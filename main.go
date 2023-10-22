@@ -59,7 +59,6 @@ func parseData(url string) {
 	for _, node := range nodes {
 		var rank, nick, name, category, followers, country, engAuth, engAvg string
 		var categoryItems []*cdp.Node
-		//var categoryItems []string
 
 		chromedp.Run(ctx,
 			chromedp.Text(".rank span", &rank, chromedp.ByQuery, chromedp.FromNode(node)),
