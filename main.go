@@ -64,14 +64,11 @@ func parseData(url string) {
 			chromedp.Text(".rank span", &rank, chromedp.ByQuery, chromedp.FromNode(node)),
 			chromedp.Text(".contributor__name-content", &nick, chromedp.ByQuery, chromedp.FromNode(node)),
 			chromedp.Text(".contributor__title", &name, chromedp.ByQuery, chromedp.FromNode(node)),
+			chromedp.Nodes(".tag", &categoryItems, chromedp.ByQueryAll, chromedp.FromNode(node), chromedp.AtLeast(0)),
 			chromedp.Text(".subscribers", &followers, chromedp.ByQuery, chromedp.FromNode(node)),
 			chromedp.Text(".audience", &country, chromedp.ByQuery, chromedp.FromNode(node)),
 			chromedp.Text(".authentic", &engAuth, chromedp.ByQuery, chromedp.FromNode(node)),
 			chromedp.Text(".engagement", &engAvg, chromedp.ByQuery, chromedp.FromNode(node)),
-		)
-
-		chromedp.Run(ctx,
-			chromedp.Nodes(".tag", &categoryItems, chromedp.ByQueryAll, chromedp.FromNode(node), chromedp.AtLeast(0)),
 		)
 
 		for id, categoryItem := range categoryItems {
